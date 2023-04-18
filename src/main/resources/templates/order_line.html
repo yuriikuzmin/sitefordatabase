@@ -9,7 +9,7 @@
     <header th:insert="~{block/header::title}"></header>
     <div class="container mt-5">
     <h3 th:text="'Страничка товар-заказчик'"/>
-        <div th:each="elem: ${allClients}" >
+        <div th:each="elem: ${allOrder}" >
             <p th:text="'№ '+${elem.id}"/>
             <p th:text="'Имя: '+${elem.order_id}"/>
             <p th:text="'Дата заказа: '+${elem.goods_id}"/>

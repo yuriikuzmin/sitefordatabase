@@ -182,6 +182,14 @@ public class MainController {
         model.addAttribute("allOrder", allOrder);
         return "order_line";
     }
-
+    @PostMapping("/order_line_add")
+    public String order_line_add(@RequestParam Long order_id, @RequestParam Long goods_id, @RequestParam Long count, Model model) {
+        OrderLine orderLineAdd = new OrderLine();
+        orderLineAdd.setOrder_id(order_id);
+        orderLineAdd.setGoods_id(goods_id);
+        orderLineAdd.setCount(count);
+        orderLineRepos.save(orderLineAdd);
+        return "redirect:/order_line";
+    }
 
 }
