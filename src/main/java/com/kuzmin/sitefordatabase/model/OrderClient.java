@@ -1,4 +1,4 @@
-package com.kuzmin.dbh2.dbase.model;
+package com.kuzmin.sitefordatabase.model;
 
 import jakarta.persistence.*;
 
@@ -13,6 +13,12 @@ public class OrderClient {
 
     @Column(name="client")
     private String client;
+
+    public OrderClient(String client, String dateOrder, String address) {
+        this.client = client;
+        this.dateOrder = dateOrder;
+        this.address = address;
+    }
 
     @Column(name="dateOrder")
     private String dateOrder;

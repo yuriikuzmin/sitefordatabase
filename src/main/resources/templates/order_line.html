@@ -8,7 +8,18 @@
 <body>
     <header th:insert="~{block/header::title}"></header>
     <div class="container mt-5">
-    <h3 th:text="'Страничка линии товар-заказчик'"/>
+    <h3 th:text="'Страничка товар-заказчик'"/>
+        <div th:each="elem: ${allClients}" >
+            <p th:text="'№ '+${elem.id}"/>
+            <p th:text="'Имя: '+${elem.order_id}"/>
+            <p th:text="'Дата заказа: '+${elem.goods_id}"/>
+            <p th:text="'Адрес: '+${elem.count}"/>
+
+            <a th:href="'/order_line/'+${elem.id}" class="btn btn-warning">Редактировать</a>
+            <form th:action="'/order_line/'+${elem.id}+'/remove'" method="post"><br>
+                <button class="btn btn-warning" type="submit">Удалить</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.kuzmin.sitefordatabase.reposet;
+package com.kuzmin.sitefordatabase.reposetdao;
 
 import com.kuzmin.sitefordatabase.model.Goods;
 import org.springframework.data.jpa.repository.JpaRepository;
