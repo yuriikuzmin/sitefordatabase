@@ -9,16 +9,18 @@
     <header th:insert="~{block/header::title}"></header>
     <div class="container mt-5">
     <h3 th:text="'Страничка товар-заказчик'"/>
+        <hr>
         <div th:each="elem: ${allOrder}" >
             <p th:text="'№ '+${elem.id}"/>
-            <p th:text="'Имя: '+${elem.order_id}"/>
-            <p th:text="'Дата заказа: '+${elem.goods_id}"/>
-            <p th:text="'Адрес: '+${elem.count}"/>
+            <p th:text="'№ заказа: '+${elem.order_id}"/>
+            <p th:text="'№ товара: '+${elem.goods_id}"/>
+            <p th:text="'количество товара: '+${elem.count}"/>
 
             <a th:href="'/order_line/'+${elem.id}" class="btn btn-warning">Редактировать</a>
             <form th:action="'/order_line/'+${elem.id}+'/remove'" method="post"><br>
                 <button class="btn btn-warning" type="submit">Удалить</button>
             </form>
+            <hr>
         </div>
     </div>
 </body>

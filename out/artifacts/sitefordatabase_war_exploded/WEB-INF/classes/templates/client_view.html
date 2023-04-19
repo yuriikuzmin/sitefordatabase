@@ -15,7 +15,7 @@
         <p th:text="'Имя: '+${elem.client}"/>
         <p th:text="'Дата заказа: '+${elem.dateOrder}"/>
         <p th:text="'Адрес: '+${elem.address}"/>
-        <a th:href="'/order_add'" class="btn btn-success">Добавить в строку заказов</a>
+        <a th:href="'/order_add_line'" class="btn btn-success">Добавить в журнал заказов</a>
         <a th:href="'/client/'+${elem.id}" class="btn btn-warning">Редактировать заказ</a>
         <form th:action="'/client/'+${elem.id}+'/remove'" method="post"><br>
             <button class="btn btn-warning" type="submit">Удалить заказ</button>

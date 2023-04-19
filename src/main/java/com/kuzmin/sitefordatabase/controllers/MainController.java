@@ -63,12 +63,7 @@ public class MainController {
         return "redirect:/client_view";
     }
 
-    //Страница заказа товар - клиент
-    @GetMapping("/order_line")
-    public String order_line(Model model) {
-        model.addAttribute("title", "Заказчик-товар");
-        return "order_line";
-    }
+
 
     //Страница введения данных товара
     @GetMapping("/goods_add")
@@ -182,13 +177,44 @@ public class MainController {
         model.addAttribute("allOrder", allOrder);
         return "order_line";
     }
+    @GetMapping("/order_line_add")
+    public String order_line_add( Model model) {
+        model.addAttribute("title", "Страничка добавления заказа в журнал");
+        return "/order_line_add";
+    }
+
     @PostMapping("/order_line_add")
-    public String order_line_add(@RequestParam Long order_id, @RequestParam Long goods_id, @RequestParam Long count, Model model) {
+    public String orderLineAdd(@RequestParam Long order_id, @RequestParam Long goods_id, @RequestParam Long count, Model model) {
         OrderLine orderLineAdd = new OrderLine();
         orderLineAdd.setOrder_id(order_id);
         orderLineAdd.setGoods_id(goods_id);
         orderLineAdd.setCount(count);
         orderLineRepos.save(orderLineAdd);
+        return "redirect:/order_line";
+    }
+    @PostMapping("/order_line/{id}/remove")
+    public String orderLineRemove(@PathVariable(value="id") long id,  Model model) {
+        OrderLine orderLineRemove=orderLineRepos.findById(id).orElseThrow();
+        orderLineRepos.delete(orderLineRemove);
+        return "redirect:/order_line";
+    }
+    //Cтраничка для редактирования заказа
+    @GetMapping("/order_line/{id}")
+    public String orderLineEdit(@PathVariable(value="id") long id, Model model) {
+        Optional<OrderLine> obj=orderLineRepos.findById(id);
+        ArrayList<OrderLine>result=new ArrayList<>();
+        obj.ifPresent(result::add);
+        model.addAttribute("result", result);
+        return "order_line_edit";
+    }
+
+    @PostMapping("/order_line/{id}")
+    public String orderLineSaveEdit(@RequestParam Long order_id, @RequestParam Long goods_id, @RequestParam Long count, Model model) {
+        OrderLine orderLineEdit = new OrderLine();
+        orderLineEdit.setOrder_id(order_id);
+        orderLineEdit.setGoods_id(goods_id);
+        orderLineEdit.setCount(count);
+        orderLineRepos.save(orderLineEdit);
         return "redirect:/order_line";
     }
 
