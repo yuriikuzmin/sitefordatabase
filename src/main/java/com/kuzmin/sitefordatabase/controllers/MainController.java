@@ -31,14 +31,15 @@ public class MainController {
     ClientRepository clientRepository;
     @Autowired
     OrderLineRepos orderLineRepos;
-
+    //Главная страница
+    //Страница отображения всех товаров
     @GetMapping("/")
     public String main_goods(Model model) {
         Iterable<Goods> all = goodsRepository.findAll();//выбираем все записи
         model.addAttribute("all", all);//Передаем результат в шаблон для отображения
         return "goods";
     }
-
+    //Страница отображения всех клиентов
     @GetMapping("/client_view")
     public String clientView(Model model) {
         Iterable<OrderClient> allClients = clientRepository.findAll();//выбираем все записи
@@ -46,13 +47,13 @@ public class MainController {
         return "client_view";
     }
 
-    //Страница клиента
+    //Страница клиента ввод для добавления в базу
     @GetMapping("/client")
     public String client(Model model) {
         model.addAttribute("title", "Заказчик");
         return "client";
     }
-
+    //Страница клиента сохранение в базе
     @PostMapping("/client")
     public String client(@RequestParam String client, @RequestParam String dateOrder, @RequestParam String address, Model model) {
         OrderClient orderClient = new OrderClient();
@@ -62,8 +63,6 @@ public class MainController {
         clientRepository.save(orderClient);
         return "redirect:/client_view";
     }
-
-
 
     //Страница введения данных товара
     @GetMapping("/goods_add")
@@ -171,18 +170,21 @@ public class MainController {
         clientRepository.delete(clientRemove);
         return "redirect:/client_view";
     }
+    //Страничка для показа журнала заказов
     @GetMapping("/order_line")
     public String orderView(Model model) {
         Iterable<OrderLine> allOrder = orderLineRepos.findAll();//выбираем все записи
         model.addAttribute("allOrder", allOrder);
         return "order_line";
     }
+    //Страничка для добавления в журнал заказов
     @GetMapping("/order_line_add")
     public String order_line_add( Model model) {
         model.addAttribute("title", "Страничка добавления заказа в журнал");
         return "/order_line_add";
     }
 
+    //Страничка для добавления в журнал заказов сохранение
     @PostMapping("/order_line_add")
     public String orderLineAdd(@RequestParam Long order_id, @RequestParam Long goods_id, @RequestParam Long count, Model model) {
         OrderLine orderLineAdd = new OrderLine();
@@ -192,13 +194,14 @@ public class MainController {
         orderLineRepos.save(orderLineAdd);
         return "redirect:/order_line";
     }
+    //Страничка для удаления из  журнала заказов
     @PostMapping("/order_line/{id}/remove")
     public String orderLineRemove(@PathVariable(value="id") long id,  Model model) {
         OrderLine orderLineRemove=orderLineRepos.findById(id).orElseThrow();
         orderLineRepos.delete(orderLineRemove);
         return "redirect:/order_line";
     }
-    //Cтраничка для редактирования заказа
+    //Cтраничка для редактирования журнала заказов получение данных из базы
     @GetMapping("/order_line/{id}")
     public String orderLineEdit(@PathVariable(value="id") long id, Model model) {
         Optional<OrderLine> obj=orderLineRepos.findById(id);
@@ -207,7 +210,7 @@ public class MainController {
         model.addAttribute("result", result);
         return "order_line_edit";
     }
-
+    //Cтраничка для редактирования журнала заказов сохранение данных в базе
     @PostMapping("/order_line/{id}")
     public String orderLineSaveEdit(@RequestParam Long order_id, @RequestParam Long goods_id, @RequestParam Long count, Model model) {
         OrderLine orderLineEdit = new OrderLine();
