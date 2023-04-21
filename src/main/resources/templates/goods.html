@@ -13,7 +13,7 @@
                 <div th:each="elem: ${all}" >
                     <p th:text="'№ '+${elem.id}"/>
                     <p th:text="'Наименование: '+${elem.nameGoods}"/>
-                    <p th:text="'Стоимость: '+${elem.price}+' руб'"/>
+                    <p th:text="'Стоимость: '+${elem.price}+' €'"/>
                     <a th:href="'/order_line_add'" class="btn btn-success">Добавить в журнал заказов</a>
                     <a th:href="'/goods/'+${elem.id}" class="btn btn-warning">Редактировать товар</a>
                     <form th:action="'/goods/'+${elem.id}+'/remove'" method="post"><br>

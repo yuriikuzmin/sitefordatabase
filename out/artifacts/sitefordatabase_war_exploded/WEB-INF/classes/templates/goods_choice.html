@@ -12,7 +12,7 @@
     <div th:each="elem: ${result}" >
         <p th:text="'№ '+${elem.id}"/>
         <p th:text="'Наименование: '+${elem.nameGoods}"/>
-        <p th:text="'Стоимость: '+${elem.price}+' руб'"/>
+        <p th:text="'Стоимость: '+${elem.price}+' €'"/>
         <a th:href="'/goods/'+${elem.id}" class="btn btn-warning">Редактировать заказ</a>
         <form th:action="'/goods/'+${elem.id}+'/remove'" method="post"><br>
             <button class="btn btn-warning" type="submit">Удалить товар</button>
